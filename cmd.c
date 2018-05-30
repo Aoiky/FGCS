@@ -43,7 +43,8 @@ void send_BR_ENTRY()
 	
 	char msg[BUFF_SIZE];
 	
-	if ((BR_sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1 ) {
+	if ((BR_sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1 ) 
+	{
         printf("create socket error\n");
     }
 	setsockopt(BR_sock, SOL_SOCKET, SO_BROADCAST | SO_REUSEADDR, &set, sizeof(int)); 
@@ -53,9 +54,9 @@ void send_BR_ENTRY()
 	BR_sock_addr.sin_port = htons(MSG_PORT);
 	BR_sock_addr.sin_addr.s_addr = getBR().sin_addr.s_addr;
 	
-	coding(msg, IPMSG_BR_ENTRY, myname);
+	coding(msg, IPMSG_BR_ENTRY, myname);//将广播上线编码到msg中
 	if((sendBytes = sendto(BR_sock, msg, strlen(msg), 0,  
-            (struct sockaddr *)&BR_sock_addr, sizeof(struct sockaddr))) == -1)
+            (struct sockaddr *)&BR_sock_addr, sizeof(struct sockaddr))) == -1)//广播发送上线消息
 	{  
         printf("sendto fail\n");  
 	}
@@ -70,7 +71,8 @@ void send_BR_EXIT()
 	
 	char msg[BUFF_SIZE];
 	
-	if ((BR_sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1 ) {
+	if ((BR_sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1 ) 
+	{
         printf("create socket error\n");
     }
 	setsockopt(BR_sock, SOL_SOCKET, SO_BROADCAST | SO_REUSEADDR, &set, sizeof(int)); 

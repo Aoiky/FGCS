@@ -71,7 +71,7 @@ int *thread_routine1(void *arg)
 
 	if ((Lis_sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1 ) 
 	{
-            printf("create socket error\n");
+            perror("create socket error\n");
             pthread_exit(NULL);
     }
 	
@@ -82,7 +82,7 @@ int *thread_routine1(void *arg)
         pthread_exit(NULL); 
     }  
 	
-	send_BR_ENTRY();
+	send_BR_ENTRY();//广播上线
 	
 	while(1)
 	{
@@ -96,7 +96,7 @@ int *thread_routine1(void *arg)
 			//printf("接收到数据包:%s 开始译码\n", recvbuf);
 			
 			memset(&cmd_obj, 0, sizeof(struct cmd));
-			transcode(&cmd_obj, recvbuf, recvbytes);
+			transcode(&cmd_obj, recvbuf, recvbytes);//sscanf();
 			//printf("解析完命令开始执行\n");
 			
 			recvMsgHandle(&cmd_obj, &Recv_addr);	

@@ -2,15 +2,16 @@
 
 void help_cmd()
 {
-	printf("\n***************************************************************\n");
-	printf("\t显示好友列表:\t\tls\n");
-	printf("\t给好友发送消息:\t\tsendto[空格]好友名\n");
-	printf("\t显示发送文件列表:\tSFL\n");
-	printf("\t显示接收文件列表:\tRFL\n");
-	printf("\t发送文件:\t\tsendfile[空格]好友名\n");
-	printf("\t接收文件:\t\tgetfile[空格]文件名\n");
-	printf("\t退出程序:\t\t\\exit\n");
-	printf("***************************************************************\n\n");
+	printf("\n\033[1;40;32m***************************************************************\033[0m\n");
+	printf("\t\033[1;40;32m查看帮助信息:\t\thelp\033[0m\n");
+	printf("\t\033[1;40;32m显示好友列表:\t\tls\033[0m\n");
+	printf("\t\033[1;40;32m给好友发送消息:\t\tsendto[空格]好友名\033[0m\n");
+	printf("\t\033[1;40;32m发送文件:\t\tsendfile[空格]好友名\033[0m\n");
+	printf("\t\033[1;40;32m接收文件:\t\tgetfile[空格]文件名\033[0m\n");
+	printf("\t\033[1;40;32m显示发送文件列表:\tSFL\033[0m\n");
+	printf("\t\033[1;40;32m显示接收文件列表:\tRFL\033[0m\n");
+	printf("\t\033[1;40;32m退出程序:\t\t/exit\033[0m\n");
+	printf("\033[1;40;32m***************************************************************\033[0m\n\n");
 }
 
 static int sendto_cmd(char *input_name)
@@ -175,12 +176,12 @@ void scan_fun()
 {
 	int recvBytes;
 	
-	char buf[BUFF_SIZE];
+	char buf[BUFF_SIZE];//128
 	
 	while(1)
 	{	
 		printf("ipmsg> ");
-		memset(&buf, 0, sizeof(buf)); 
+		memset(&buf, 0, sizeof(buf)); //置零
 		if ((recvBytes = read(1, buf, sizeof(buf))) != -1 ) 
 		{
 			buf[recvBytes-1] = '\0';
@@ -190,19 +191,19 @@ void scan_fun()
 			{
 				sendto_cmd(&buf[7]);
 			}
-			else if (strcmp(buf, "ls") == 0)
+			else if (strcmp(buf, "ls") == 0)//显示用户列表
 			{
 				ls_cmd();
 			}
-			else if (strcmp(buf, "help") == 0)
+			else if (strcmp(buf, "help") == 0)//显示帮助页面
 			{
 				help_cmd();
 			}
-			else if (strncmp(buf, "getfile", 7) == 0)
+			else if (strncmp(buf, "getfile", 7) == 0)//接收文件
 			{
 				getfile_cmd(&buf[8]);
 			}
-			else if (strncmp(buf, "sendfile", 8) == 0)
+			else if (strncmp(buf, "sendfile", 8) == 0)//发送文件
 			{
 				sendfile_cmd(&buf[9]);
 			}
